@@ -1,0 +1,13 @@
+.light-theme{
+  background-color: white;
+  color: black;
+}
+
+.dark-theme{
+  background-color: black;
+  color: white;
+}
+
+.dark-theme, .light-theme {
+  min-height: 100vh;
+}
