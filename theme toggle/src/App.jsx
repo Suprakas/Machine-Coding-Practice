@@ -4,16 +4,18 @@ import "./App.css";
 function App() {
   const [theme, setTheme] = useState(() => {
     const savedTheme = localStorage.getItem("theme");
-    return savedTheme === "light" || savedTheme === "dark" ? savedTheme : "light";
+    return savedTheme === "light" || savedTheme === "dark"
+      ? savedTheme
+      : "light";
   });
 
   const handleThemeToggle = () => {
     setTheme((prevTheme) => (prevTheme === "light" ? "dark" : "light"));
   };
 
-  useEffect(()=>{
-localStorage.setItem("theme", theme)
-  },[])
+  useEffect(() => {
+    localStorage.setItem("theme", theme);
+  }, [theme]);
 
   return (
     <div className={theme === "light" ? "light-theme" : "dark-theme"}>
