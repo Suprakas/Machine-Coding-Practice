@@ -1,0 +1,15 @@
+.modal-overlay{
+    background-color: black;
+    position: fixed;
+    inset: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.modal {
+    padding: 10px;
+    width: 200px;
+    border-radius: 10px;
+    background-color: aqua;
+}
