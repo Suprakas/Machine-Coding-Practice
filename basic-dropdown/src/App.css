@@ -1,0 +1,27 @@
+.dropdown {
+  width: 200px;
+}
+
+.dropdown-button {
+  width: 100%;
+  padding: 10px;
+
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  cursor: pointer;
+}
+
+.dropdown-menu {
+  border: 1px solid black;
+}
+
+.dropdown-item {
+  padding: 3px;
+  cursor: pointer;
+}
+
+.dropdown-item:hover {
+  background: lightgray;
+}
