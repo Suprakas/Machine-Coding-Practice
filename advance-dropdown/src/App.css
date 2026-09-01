@@ -1,0 +1,35 @@
+.dropdown {
+  width: 200px;
+  position: relative;
+}
+
+.dropdown-button {
+  width: 100%;
+  padding: 10px;
+
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  cursor: pointer;
+}
+
+.dropdown-menu {
+  border: 1px solid black;
+  position: absolute;
+  top: 100%;
+  left: 0%;
+  width: 100%;
+  z-index: 10;
+  background: white;
+
+}
+
+.dropdown-item {
+  padding: 3px;
+  cursor: pointer;
+}
+
+.dropdown-item:hover {
+  background: lightgray;
+}
