@@ -1,0 +1,38 @@
+
+
+.dropdown {
+  width: 300px;
+  
+}
+
+.dropdown-button {
+  width: 100%;
+  padding: 5px;
+  border: 1px solid black;
+  background: white;
+  cursor: pointer;
+
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.dropdown-menu {
+  margin-top: 4px;
+  border: 1px solid gray;
+  background: white;
+}
+
+.dropdown-item {
+  padding: 5px;
+  cursor: pointer;
+
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.dropdown-item:hover {
+  background: wheat;
+}
+
