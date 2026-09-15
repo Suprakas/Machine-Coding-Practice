@@ -1,4 +1,4 @@
-img {
+.carousel img {
   width: 500px;
   height: 300px;
   object-fit: cover;
@@ -10,4 +10,14 @@ button {
   padding: 5px;
   margin-right: 10px;
   cursor: pointer;
+}
+
+.dots {
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+.dots button {
+  background: none;
+  border: none;
 }

@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { GoDotFill, GoDot } from "react-icons/go";
 
 export default function ImageCarousel({ images }) {
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -23,16 +24,31 @@ export default function ImageCarousel({ images }) {
 
   const handleDotClick = (index) => {
     setCurrentIndex(index);
-  }
-  
+  };
+
   return (
-    <div>
+    <div className="carousel">
       <p>
         Image {currentIndex + 1} of {images.length}
       </p>
-      <img src={images[currentIndex]} alt="image carousel" />
-      <button onClick={handlePrevious}>Previous</button>
-      <button onClick={handleNext}>Next</button>
+      <img src={images[currentIndex]} alt={`Carousel ${currentIndex + 1}`} />
+
+      <div className="dots">
+        {images.map((_, index) => {
+          const isActive = currentIndex === index;
+          return (
+            <button key={index} onClick={() => handleDotClick(index)}>
+              {isActive ? <GoDotFill /> : <GoDot />}
+            </button>
+          );
+        })}
+      </div>
+
+      <div>
+        <button onClick={handlePrevious}>Previous</button>
+        <button onClick={handleNext}>Next</button>
+      </div>
+      
     </div>
   );
 }
