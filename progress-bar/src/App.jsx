@@ -15,25 +15,25 @@ function App() {
 
   useEffect(() => {
     const intervalId = setInterval(() => {
-      setProgress((prev) => Math.min(100, prev + 10))
-    }, 1000)
+      setProgress((prev) => Math.min(100, prev + 10));
+    }, 1000);
 
     return () => {
       clearInterval(intervalId);
-    }
-  }, [])
+    };
+  }, []);
+  
   return (
     <>
       <h3>Progress bar</h3>
-      <ProgressBar progress={progress}/>
+      <ProgressBar progress={progress} />
 
-      {progress===100 && <p>Already completed</p>}
+      {progress === 100 && <p>Already completed</p>}
       <div className="progress-bar-buttons">
-
-      <button onClick={() => handleIncrease(30)} disabled={progress === 100}>
-        Increase
-      </button>
-      <button onClick={handleReset}>Reset</button>
+        <button onClick={() => handleIncrease(30)} disabled={progress === 100}>
+          Increase
+        </button>
+        <button onClick={handleReset}>Reset</button>
       </div>
     </>
   );
