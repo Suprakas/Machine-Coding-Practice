@@ -1,31 +1,40 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import "./App.css";
+import ProgressBar from "./components/ProgressBar";
 
 function App() {
   const [progress, setProgress] = useState(0);
 
-  const handleIncrease = () => {
-    setProgress((prev) => (prev < 100 ? prev + 10 : prev));
+  const handleIncrease = (step) => {
+    setProgress((prev) => Math.min(100, prev + step));
   };
 
   const handleReset = () => {
     setProgress(0);
   };
 
-  console.log(progress);
+  useEffect(() => {
+    const intervalId = setInterval(() => {
+      setProgress((prev) => Math.min(100, prev + 10))
+    }, 1000)
+
+    return () => {
+      clearInterval(intervalId);
+    }
+  }, [])
   return (
     <>
       <h3>Progress bar</h3>
-      <div className="progress-container">
-        <div className="progress-bar" style={{ width: `${progress}%` }}>
-          
-        </div>
-        <span className="progress-text">{progress}%</span>
-      </div>
-      <button onClick={handleIncrease} disabled={progress === 100}>
+      <ProgressBar progress={progress}/>
+
+      {progress===100 && <p>Already completed</p>}
+      <div className="progress-bar-buttons">
+
+      <button onClick={() => handleIncrease(30)} disabled={progress === 100}>
         Increase
       </button>
       <button onClick={handleReset}>Reset</button>
+      </div>
     </>
   );
 }

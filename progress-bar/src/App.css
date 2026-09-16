@@ -8,7 +8,7 @@
 .progress-bar {
   height: 100%;
   background-color: green;
-  text-align: center;
+  /* text-align: center; */
   transition: width 0.3s ease;
 }
 
@@ -16,4 +16,11 @@
   position: absolute;
   left: 50%;
   top: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.progress-bar-buttons {
+  margin-top: 10px;
+  display: flex;
+  gap: 20px;
 }
