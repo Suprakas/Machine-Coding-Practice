@@ -16,3 +16,19 @@
   background: none;
   cursor: pointer;
 }
+
+.toast.success {
+  background-color: lightgreen;
+}
+
+.toast.error {
+  background-color: lightcoral;
+}
+
+.toast.warning {
+  background-color: lightyellow;
+}
+
+.toast.info {
+  background-color: lightblue;
+}

@@ -1,7 +1,6 @@
-import { ImCross } from "react-icons/im";
 import { useState } from "react";
-
 import "./App.css";
+import Toast from "./components/Toast";
 
 function App() {
   const [isVisible, setIsVisible] = useState(false);
@@ -14,21 +13,17 @@ function App() {
     setIsVisible(false);
   };
 
+  
   return (
     <>
       <h3>Toast Notification</h3>
       {isVisible && (
-        <div className="toast">
-          <span>Operation successful !!</span>
-
-          <button
-            className="toast-close"
-            onClick={handleHideToast}
-            aria-label="Close notification"
-          >
-            <ImCross />
-          </button>
-        </div>
+        <Toast
+          onHide={handleHideToast}
+          message="Operation successful !!"
+          duration={5000}
+          type="error"
+        />
       )}
       <button onClick={handleShowToast}>Show Toast</button>
     </>
