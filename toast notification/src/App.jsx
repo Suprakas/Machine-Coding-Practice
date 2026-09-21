@@ -3,29 +3,50 @@ import "./App.css";
 import Toast from "./components/Toast";
 
 function App() {
-  const [isVisible, setIsVisible] = useState(false);
+  const [toasts, setToasts] = useState([
+    //   {
+    //   id: 1,
+    //   message: "Saved successfully!",
+    //   type: "success"
+    // },
+    // {
+    //   id: 2,
+    //   message: "Something went wrong!",
+    //   type: "error"
+    // }
+  ]);
 
-  const handleShowToast = () => {
-    setIsVisible(true);
+  const addToast = () => {
+    const newToast = {
+      id: Date.now(),
+      message: "Operation successful!",
+      type: "success",
+    };
+
+    setToasts((prev) => [...prev, newToast]);
   };
 
-  const handleHideToast = () => {
-    setIsVisible(false);
+  const removeToast = (id) => {
+    setToasts((prev) => prev.filter((toast) => toast.id !== id));
   };
 
-  
   return (
     <>
       <h3>Toast Notification</h3>
-      {isVisible && (
-        <Toast
-          onHide={handleHideToast}
-          message="Operation successful !!"
-          duration={5000}
-          type="error"
-        />
-      )}
-      <button onClick={handleShowToast}>Show Toast</button>
+
+      <button onClick={addToast}>Show Toast</button>
+
+      <div className="toast-container">
+        {toasts.map((toast) => (
+          <Toast
+            key={toast.id}
+            message={toast.message}
+            type={toast.type}
+            duration={3000}
+            onHide={() => removeToast(toast.id)}
+          />
+        ))}
+      </div>
     </>
   );
 }

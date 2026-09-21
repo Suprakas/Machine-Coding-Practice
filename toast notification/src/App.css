@@ -1,20 +1,23 @@
-.toast {
+.toast-container {
+  position: fixed;
+  top: 20px;
+  right: 20px;
 
-  border: 2px solid black;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.toast {
   width: 300px;
-  
+  padding: 10px;
+
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 5px;
-  border-radius: 10px;
-  margin-bottom: 20px;
-}
 
-.toast-close {
-  border: none;
-  background: none;
-  cursor: pointer;
+  border: 1px solid black;
+  border-radius: 8px;
 }
 
 .toast.success {
@@ -31,4 +34,10 @@
 
 .toast.info {
   background-color: lightblue;
+}
+
+.toast-close {
+  border: none;
+  background: transparent;
+  cursor: pointer;
 }

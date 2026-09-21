@@ -1,27 +1,33 @@
-import { ImCross } from "react-icons/im";
 import { useEffect } from "react";
+import { ImCross } from "react-icons/im";
 
-export default function Toast({ type, message, duration, onHide }) {
-  
-    useEffect(() => {
-        const timerId = setTimeout(() => {
-            onHide();
-        }, duration)
+export default function Toast({
+  message,
+  type,
+  duration = 3000,
+  onHide,
+}) {
+  useEffect(() => {
+    const timerId = setTimeout(() => {
+      onHide();
+    }, duration);
 
-        return () => {
-            clearTimeout(timerId)
-        }
-    }, [onHide, duration])
+    return () => {
+      clearTimeout(timerId);
+    };
+  }, [duration, onHide]);
 
-    return (
-
-    <div className={`toast ${type}`}>
+  return (
+    <div
+      className={`toast ${type}`}
+      role="status"
+      aria-live="polite"
+    >
       <span>{message}</span>
 
       <button
         className="toast-close"
         onClick={onHide}
-        duration={duration}
         aria-label="Close notification"
       >
         <ImCross />
