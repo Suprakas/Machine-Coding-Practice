@@ -1,24 +1,46 @@
-import { useState, useRef, useEffect } from "react";
+import { useEffect, useRef, useState } from "react";
 import "./App.css";
 import { IoIosArrowDropdownCircle } from "react-icons/io";
 import { IoIosArrowDropupCircle } from "react-icons/io";
 
-function App() {
-  const [isOpen, setIsOpen] = useState(false);
-  const dropdownRef = useRef(null);
+const navItems = [
+  { id: 1, label: "Home", path: "/home" },
+  { id: 2, label: "About", path: "/about" },
+];
 
-  const handleOpen = () => {
-    setIsOpen((prev) => !prev);
+const serviceItems = [
+  { id: 1, label: "Web Development", path: "/web" },
+  { id: 2, label: "Mobile Development", path: "/mobile" },
+  { id: 3, label: "Cloud Services", path: "/cloud" },
+];
+
+const productItems = [
+  { id: 1, label: "Product A", path: "/product-a" },
+  { id: 2, label: "Product B", path: "/product-b" },
+  { id: 3, label: "Product C", path: "/product-c" },
+];
+
+function App() {
+  const [dropdown, setDropdown] = useState(null);
+
+  const navbarRef = useRef(null);
+
+  const handleDropdown = (menu) => {
+    setDropdown((prev) => (prev === menu ? null : menu));
   };
 
   const handleItemClick = () => {
-    setIsOpen(false);
-  }
+    setDropdown(null);
+  };
 
+  // Close dropdown when clicking outside
   useEffect(() => {
     const handleClickOutside = (e) => {
-      if (dropdownRef.current && !dropdownRef.current.contains(e.target)) {
-        setIsOpen(false);
+      if (
+        navbarRef.current &&
+        !navbarRef.current.contains(e.target)
+      ) {
+        setDropdown(null);
       }
     };
 
@@ -29,53 +51,113 @@ function App() {
     };
   }, []);
 
+  // Close dropdown when Escape is pressed
   useEffect(() => {
+    if (!dropdown) return;
 
-    if(!isOpen) return;
-    
-    const handleKeyEscape = (e) => {
-      if (e.key === "Escape"){
-        setIsOpen(false);
+    const handleEscape = (e) => {
+      if (e.key === "Escape") {
+        setDropdown(null);
       }
-    }
+    };
 
-    window.addEventListener("keydown", handleKeyEscape);
+    window.addEventListener("keydown", handleEscape);
+
     return () => {
-      window.removeEventListener("keydown", handleKeyEscape);
-    }
-  }, [isOpen]);
+      window.removeEventListener("keydown", handleEscape);
+    };
+  }, [dropdown]);
 
   return (
     <>
       <h3>Navbar and Dropdown</h3>
-      <nav className="navbar">
+
+      <nav className="navbar" ref={navbarRef}>
         <ul className="navbar-items">
-          <li>Logo</li>
-          <li>Home</li>
-          <li>About</li>
+
+          {/* Logo */}
+          <li className="logo">Logo</li>
+
+          {/* Normal Navbar Items */}
+          {navItems.map((item) => (
+            <li key={item.id}>
+              <a
+                href={item.path}
+                className="navbar-link"
+              >
+                {item.label}
+              </a>
+            </li>
+          ))}
+
+          {/* Services Dropdown */}
           <li>
-            <div className="dropdown" ref={dropdownRef}>
+            <div className="dropdown">
               <button
                 className="dropdown-button"
-                onClick={handleOpen}
-                aria-expanded={isOpen}
+                onClick={() => handleDropdown("services")}
+                aria-expanded={dropdown === "services"}
+                aria-haspopup="true"
               >
                 Services
-                {isOpen ? (
+
+                {dropdown === "services" ? (
                   <IoIosArrowDropupCircle />
                 ) : (
                   <IoIosArrowDropdownCircle />
                 )}
               </button>
-              {isOpen && (
+
+              {dropdown === "services" && (
                 <div className="dropdown-items">
-                  <a href="/web" onClick={handleItemClick}>Web Development</a>
-                  <a href="/mobile" onClick={handleItemClick}>Mobile Development</a>
-                  <a href="/cloud" onClick={handleItemClick}>Cloud Services</a>
+                  {serviceItems.map((item) => (
+                    <a
+                      key={item.id}
+                      href={item.path}
+                      onClick={handleItemClick}
+                    >
+                      {item.label}
+                    </a>
+                  ))}
                 </div>
               )}
             </div>
           </li>
+
+          {/* Products Dropdown */}
+          <li>
+            <div className="dropdown">
+              <button
+                className="dropdown-button"
+                onClick={() => handleDropdown("products")}
+                aria-expanded={dropdown === "products"}
+                aria-haspopup="true"
+              >
+                Products
+
+                {dropdown === "products" ? (
+                  <IoIosArrowDropupCircle />
+                ) : (
+                  <IoIosArrowDropdownCircle />
+                )}
+              </button>
+
+              {dropdown === "products" && (
+                <div className="dropdown-items">
+                  {productItems.map((item) => (
+                    <a
+                      key={item.id}
+                      href={item.path}
+                      onClick={handleItemClick}
+                    >
+                      {item.label}
+                    </a>
+                  ))}
+                </div>
+              )}
+            </div>
+          </li>
+
         </ul>
       </nav>
     </>
