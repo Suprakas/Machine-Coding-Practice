@@ -6,22 +6,41 @@ function App() {
     username: "",
     email: "",
     role: "",
+    isSubscribed: false,
   });
 
   const handleChange = (e) => {
-    setFormData((prev) => ({
-      ...prev,
-      [e.target.name]: e.target.value,
-    }));
+    if (e.target.type === "checkbox") {
+      setFormData((prev) => ({
+        ...prev,
+        [e.target.name]: e.target.checked,
+      }));
+    } else {
+      setFormData((prev) => ({
+        ...prev,
+        [e.target.name]: e.target.value,
+      }));
+    }
   };
+
+//   const handleChange = (e) => {
+//   const { name, type, value, checked } = e.target;
+
+//   setFormData((prev) => ({
+//     ...prev,
+//     [name]: type === "checkbox" ? checked : value,
+//   }));
+// };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log(formData);
+    console.log("SUBMITTED", formData);
+
     setFormData({
       username: "",
       email: "",
       role: "",
+      isSubscribed: false,
     });
   };
 
@@ -29,7 +48,7 @@ function App() {
     <>
       <h3>Controlled Form </h3>
 
-      <form onClick={handleSubmit}>
+      <form onSubmit={handleSubmit}>
         {/* Username */}
         <div>
           <label>Username</label>
@@ -61,6 +80,20 @@ function App() {
             <option value="backend">Backend Developer</option>
             <option value="fullstack">FullStack Developer</option>
           </select>
+        </div>
+
+        {/* Checked */}
+
+        <div>
+          <label>
+            <input
+              type="checkbox"
+              name="isSubscribed"
+              value={formData.isSubscribed}
+              onChange={handleChange}
+            />
+            Subscribe to newsletter
+          </label>
         </div>
 
         {/* Submit */}
