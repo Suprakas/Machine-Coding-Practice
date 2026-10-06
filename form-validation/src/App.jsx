@@ -12,6 +12,47 @@ function App() {
     subscribe: false,
   });
 
+ const [errors, setErrors] = useState({
+  username: "",
+  email: "",
+  role: "",
+  experience: "",
+  bio: "",
+});
+
+const validateForm = () => {
+    let newErrors = {};
+    // Username validation
+    if(!formData.username.trim()){
+      newErrors.username = "Username is required !!"
+    } else if (formData.username.trim().length < 3){
+      newErrors.username = "Username must be atleast 3 characters."
+    }
+
+    // Email Validation
+
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if(!formData.email.trim()){
+      newErrors.email = "Email field cann't be empty!!"
+    } else if (!emailRegex.test(formData.email)){
+      newErrors.email = "Please enter a valid email."
+    }
+
+    // Role Validation
+
+    if(!formData.role){
+      newErrors.role = "Please select a role"
+    }
+
+    // Experience Validation
+    
+    if(!formData.experience){
+      newErrors.experience = "Please select your experience"
+    }
+
+    setErrors(newErrors);
+  }
+
   const handleChange = (e) => {
     if (e.target.type === "checkbox") {
       setFormData((prev) => ({
@@ -28,24 +69,27 @@ function App() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    validateForm();
     console.log("Submitted Formdata is : ", formData);
 
-    setFormData({
-      username: "",
-      email: "",
-      role: "",
-      experience: "",
-      bio: "",
-      subscribe: false,
-    });
+    // setFormData({
+    //   username: "",
+    //   email: "",
+    //   role: "",
+    //   experience: "",
+    //   bio: "",
+    //   subscribe: false,
+    // });
   };
+
+  
   return (
     <>
       <h3>Form Validation</h3>
       <form onSubmit={handleSubmit}>
         {/* Username */}
         <div>
-          <label>Username</label>
+          <label>Username </label>
           <input
             type="text"
             name="username"
@@ -53,11 +97,13 @@ function App() {
             value={formData.username}
             onChange={handleChange}
           />
+
+          {errors.username && <p>{errors.username}</p>}
         </div>
 
         {/* Email */}
         <div>
-          <label>Email</label>
+          <label>Email </label>
           <input
             type="email"
             name="email"
@@ -65,21 +111,26 @@ function App() {
             value={formData.email}
             onChange={handleChange}
           />
+
+          {errors.email && <p>{errors.email}</p>}
         </div>
 
         {/* Role */}
         <div>
-          <label>role</label>
+          <label>role </label>
           <select name="role" value={formData.role} onChange={handleChange}>
             <option value="">Select your role</option>
             <option value="frontend">Frontend Developer</option>
             <option value="backend">Backend Developer</option>
             <option value="fullstack">Full Stack developer</option>
           </select>
+
+          {errors.role && <p>{errors.role}</p>}
         </div>
 
         {/* Experience */}
         <div>
+        <label>Experience </label>
           <label>
             <input
               type="radio"
@@ -110,11 +161,13 @@ function App() {
             />
             more than 5 years
           </label>
+
+          {errors.experience && <p>{errors.experience}</p>}
         </div>
 
         {/* Bio */}
         <div>
-          <label>Bio</label>
+          <label>Bio </label>
           <textarea
             name="bio"
             placeholder="Write your bio"
